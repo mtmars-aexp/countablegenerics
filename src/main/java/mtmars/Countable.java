@@ -1,5 +1,7 @@
 package mtmars;
 
-public interface Countable {
+import java.util.function.Predicate;
+
+public interface Countable<T> {
     int getCount();
 }

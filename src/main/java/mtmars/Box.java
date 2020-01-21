@@ -8,7 +8,6 @@ public class Box<T extends Countable> implements Countable {
     //A box can hold anything that implements the Countable interface.
     private List<T> contents = new ArrayList<T>();
 
-
     //Boxes will return the amount of items inside them.
     public int getCount() {
         return contents.size();

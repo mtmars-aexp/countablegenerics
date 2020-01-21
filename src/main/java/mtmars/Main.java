@@ -1,52 +1,48 @@
 package mtmars;
 
+import java.util.function.Predicate;
+
 public class Main {
 
     public static void main(String args[]){
 
-        Apple apple = new Apple();
-        Box box = new Box();
-        Box otherBox = new Box();
-        Cart cart = new Cart();
-        Counter appleCounter = new Counter();
-        Counter boxCounter = new Counter();
-        Counter cartCounter = new Counter();
+        Apple apple1 = new Apple(AppleType.BRAEBURN);
+        Apple apple2 = new Apple(AppleType.GRANNY_SMITH);
+        Apple apple3 = new Apple(AppleType.BRAEBURN);
+        Apple apple4 = new Apple(AppleType.GRANNY_SMITH);
+        Apple apple5 = new Apple(AppleType.BRAEBURN);
+        Apple apple6 = new Apple(AppleType.GOLDEN_DELICIOUS);
 
-        //Adding apples to the apple counter.
-        appleCounter.add(apple);
-        appleCounter.add(apple);
-        appleCounter.add(apple);
-        appleCounter.add(apple);
-
-        //Adding boxes to the box counter.
-        boxCounter.add(box);
-        boxCounter.add(box);
-        boxCounter.add(box);
-
-        //Adding carts to the cart counter.
-        cartCounter.add(cart);
-        cartCounter.add(cart);
-
-        System.out.println(appleCounter.getCount()); //Should print 4.
-        System.out.println(boxCounter.getCount()); //Should print 0. No apples in the boxes.
-        System.out.println(cartCounter.getCount()); //Should print 2. No apples in the boxes in the carts.
-
-        otherBox.add(apple);
-        cart.add(otherBox);
-
-        System.out.println(cartCounter.getCount()); //Should print 2. With two identical carts in the counter, and 1 box of apples in each, that's 2 apples in total.
+        Counter<Apple> braeburnCounter = new Counter<Apple>(new BraeburnsOnly());
+        Counter<Apple> grannySmithCounter = new Counter<Apple>(new GrannySmithsOnly());
+        Counter<Apple> lambdaBraeburnCounter = new Counter<Apple>(o -> o.getType() == AppleType.BRAEBURN);
+        Counter<Apple> goldenDeliciousCounter = new Counter<Apple>(o -> o.getType() == AppleType.GOLDEN_DELICIOUS);
 
 
-        box.add(apple);
-        System.out.println(box.getCount()); //Should print 1.
-        box.add(apple);
-        System.out.println(box.getCount()); //Should print 2.
 
-        cart.add(box);
-        cart.add(box);
-        System.out.println(cart.getCount()); //Should print 4, as each box has 2 apples each, and there's 2 boxes.
-        cart.add(box);
-        System.out.println(cart.getCount()); //Should now print 6. Another box of 2 apples has been added.
+        braeburnCounter.add(apple1);
+        braeburnCounter.add(apple2);
+        braeburnCounter.add(apple3);
+        braeburnCounter.add(apple6);
+        grannySmithCounter.add(apple1);
+        grannySmithCounter.add(apple2);
+        lambdaBraeburnCounter.add(apple1);
+        lambdaBraeburnCounter.add(apple2);
+        goldenDeliciousCounter.add(apple4);
+        goldenDeliciousCounter.add(apple5);
+        goldenDeliciousCounter.add(apple6);
+        goldenDeliciousCounter.add(apple6);
+        goldenDeliciousCounter.add(apple6);
+        goldenDeliciousCounter.add(apple6);
+        goldenDeliciousCounter.add(apple6);
+        goldenDeliciousCounter.add(apple6);
+
+        System.out.println(braeburnCounter.getCount());
+        System.out.println(grannySmithCounter.getCount());
+        System.out.println(goldenDeliciousCounter.getCount());
+        System.out.println(lambdaBraeburnCounter.getCount());
+
+
     }
 
 }
